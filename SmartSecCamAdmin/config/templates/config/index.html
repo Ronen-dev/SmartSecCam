@@ -7,7 +7,11 @@
 <body>
     <h1>Modifier le mot de passe</h1>
 
-    <form action="" method="POST">
+    {% if error %}
+        {{ error }}
+    {% endif %}
+
+    <form action="{% url 'index' %}" method="POST">
         {% csrf_token %}
         <label for="password">Mot de passe</label>
         <input title="Password" type="password" name="password" id="password" value="" />
