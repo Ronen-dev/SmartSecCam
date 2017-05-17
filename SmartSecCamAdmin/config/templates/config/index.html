@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartSecCam - Modification du mot de passe</title>
+</head>
+<body>
+    <h1>Modifier le mot de passe</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="password">Mot de passe</label>
+        <input title="Password" type="password" name="password" id="password" value="" />
+
+        <input type="submit" value="Enregistrer" />
+    </form>
+</body>
+</html>
