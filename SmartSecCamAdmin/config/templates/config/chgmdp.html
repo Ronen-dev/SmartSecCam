@@ -11,8 +11,8 @@
                     </div>
 
                     <div class="form-wrap">
-                    <h1>Veuillez créer un nouveau mot de passe</h1>
-                        <form role="form" action="{% url 'index' %}" method="POST" id="login-form" autocomplete="off">
+                    <h1>Modification du mot de passe</h1>
+                        <form role="form" action="{% url 'chgmdppost' %}" method="POST" id="login-form" autocomplete="off">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="password" class="sr-only">Mot de passe</label>
@@ -28,4 +28,3 @@
         </div> <!-- /.container -->
     </section>
 {% endblock content %}
-

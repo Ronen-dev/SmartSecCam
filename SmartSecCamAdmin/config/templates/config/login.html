@@ -6,13 +6,19 @@
             <div class="row">
                 <div class="col-xs-12">
 
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
                     <div class="title">
                         SmartSecCam
                     </div>
 
                     <div class="form-wrap">
-                    <h1>Veuillez créer un nouveau mot de passe</h1>
-                        <form role="form" action="{% url 'index' %}" method="POST" id="login-form" autocomplete="off">
+                    <h1>Connexion à votre espace</h1>
+                        <form role="form" action="{% url 'signin' %}" method="POST" id="login-form" autocomplete="off">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="password" class="sr-only">Mot de passe</label>
@@ -20,7 +26,6 @@
                             </div>
                             <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Modifier">
                         </form>
-                        <!--<a href="#" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>-->
                         <hr>
                     </div>
                 </div> <!-- /.col-xs-12 -->
@@ -28,4 +33,3 @@
         </div> <!-- /.container -->
     </section>
 {% endblock content %}
-
