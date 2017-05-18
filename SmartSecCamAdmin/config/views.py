@@ -29,7 +29,7 @@ def index(request):
             file.close()
             
             sudo_password_callback = 'azerty'
-            username, username_password = 'taner', password
+            username, username_password = 'pi', password
 
             try:
                 hashed = crypt(username_password)
