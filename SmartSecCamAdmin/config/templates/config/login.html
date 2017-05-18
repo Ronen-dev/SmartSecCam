@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SmartSecCam - Création du mot de passe</title>
+    <title>Connexion à votre espace</title>
 </head>
 <body>
-    <h1>Veuillez créer un mot de passe d'accès</h1>
+
+    <h1>Connexion à votre espace</h1>
 
     {% if error %}
         {{ error }}
     {% endif %}
 
-    <form action="{% url 'index' %}" method="POST">
+    <form action="{% url 'signin' %}" method="POST">
         {% csrf_token %}
         <label for="password">Mot de passe</label>
         <input title="Password" type="password" name="password" id="password" value="" />
 
         <input type="submit" value="Enregistrer" />
     </form>
+
 </body>
 </html>

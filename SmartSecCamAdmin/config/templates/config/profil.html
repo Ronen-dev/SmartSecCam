@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace personnel</title>
+</head>
+<body>
+
+    {% if success %}
+        {{ success }}
+    {% endif %}
+
+    <h1>Bienvenue sur votre espace personnel</h1>
+
+    <form action="{% url 'profiloption' %}" method="POST">
+        {% csrf_token %}
+        <label for="typeoption">Modifier</label>
+        <select name="typeoption" id="typeoption">
+            <option value="1">Modifier votre mot de passe</option>
+            <option value="2">Modifier la configuration Wi-Fi</option>
+        </select>
+        <input type="submit" value="Envoyer" />
+    </form>
+</body>
+</html>
