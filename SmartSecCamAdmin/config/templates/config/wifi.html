@@ -5,6 +5,29 @@
     <title>Configuration du Wi-Fi</title>
 </head>
 <body>
-    Test
+
+    <h1>Choix du Wifi</h1>
+
+    <form action="/config/wifi/" method="POST">
+        {% csrf_token %}
+        <label for="wifi_name">Selectionner votre Wifi</label>
+        <input title="wifi_name" type="text" name="wifi_name" id="wifi_name" value="" />
+
+        <select id="select">
+          <option value="valeur1">Valeur 1</option>
+          <option value="valeur2" selected>Valeur 2</option>
+          <option value="valeur3">Valeur 3</option>
+        </select>
+
+        <input type="submit" value="Valider" />
+    </form>
+<p>tata</p>
+
+    {% for wifi in wifilist %}
+        <p> {{ wifi }} </p>
+    {% endfor %}
+
+
+<p>toto</p>
 </body>
 </html>
