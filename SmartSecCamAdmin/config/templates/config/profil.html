@@ -1,25 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Espace personnel</title>
-</head>
-<body>
+{% extends 'config/layout.html' %}
 
-    {% if success %}
-        {{ success }}
-    {% endif %}
+{% block content %}
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
 
-    <h1>Bienvenue sur votre espace personnel</h1>
+                    {% if success %}
+                    <div class="alert alert-success" role="alert">
+                        {{ success }}
+                    </div>
+                    {% endif %}
 
-    <form action="{% url 'profiloption' %}" method="POST">
-        {% csrf_token %}
-        <label for="typeoption">Modifier</label>
-        <select name="typeoption" id="typeoption">
-            <option value="1">Modifier votre mot de passe</option>
-            <option value="2">Modifier la configuration Wi-Fi</option>
-        </select>
-        <input type="submit" value="Envoyer" />
-    </form>
-</body>
-</html>
+                    <div class="title">
+                        SmartSecCam
+                    </div>
+
+                    <div class="form-wrap">
+                    <h1>Espace configuration</h1>
+                        <form role="form" action="{% url 'profiloption' %}" method="POST" id="login-form" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <select name="typeoption" id="typeoption" class="form-control">
+                                    <option value="1">Modifier votre mot de passe</option>
+                                    <option value="2">Modifier la configuration Wi-Fi</option>
+                                </select>
+                            </div>
+                            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Accéder">
+                        </form>
+                        <!--<a href="#" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>-->
+                        <hr>
+                    </div>
+                </div> <!-- /.col-xs-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section>
+{% endblock content %}

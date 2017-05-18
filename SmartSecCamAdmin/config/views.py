@@ -27,32 +27,41 @@ def index(request):
             file = open(filename, "w")
             file.write(password)
             file.close()
-            
-            sudo_password_callback = 'azerty'
-            username, username_password = 'pi', password
 
-            try:
-                hashed = crypt(username_password)
-            except TypeError:
-                p = Popen(
-                    ["mkpasswd", "-m", "sha-512", "-s"],
-                    stdin=PIPE,
-                    stdout=PIPE,
-                    universal_newlines=True
-                )
-                
-                hashed = p.communicate(username_password)[0][:-1]
-                assert p.wait() == 0
-            assert hashed == crypt(username_password, hashed)
+            ####
+            #                  MODIFICATION DU MOT DE PASSE
+            #   COMMENTER CETTE PARTIE POUR NE PAS AVOIR UNE MAUVAISE SURPRISE !
+            ####
 
-            p = Popen(
-                ['sudo', '-S', 'usermod', '-p', hashed, username],
-                stdin=PIPE,
-                universal_newlines=True
-            )
+            # sudo_password_callback = 'azerty'
+            # username, username_password = 'pi', password
+            #
+            # try:
+            #     hashed = crypt(username_password)
+            # except TypeError:
+            #     p = Popen(
+            #         ["mkpasswd", "-m", "sha-512", "-s"],
+            #         stdin=PIPE,
+            #         stdout=PIPE,
+            #         universal_newlines=True
+            #     )
+            #
+            #     hashed = p.communicate(username_password)[0][:-1]
+            #     assert p.wait() == 0
+            # assert hashed == crypt(username_password, hashed)
+            #
+            # p = Popen(
+            #     ['sudo', '-S', 'usermod', '-p', hashed, username],
+            #     stdin=PIPE,
+            #     universal_newlines=True
+            # )
+            #
+            # p.communicate(sudo_password_callback + '\n')
+            # assert p.wait() == 0
 
-            p.communicate(sudo_password_callback + '\n')
-            assert p.wait() == 0
+            #
+            # FIN MODIFICATION MOT DE PASSE
+            #
 
             context['success'] = "Mot de passe correctement modifié : " + password
 
@@ -84,6 +93,7 @@ def signin(request):
         file.close()
 
         if is_correct:
+            context['success'] = "Connexion à votre espace réussie!"
             return render(request, 'config/profil.html', context)
         else:
             context['error'] = "Mot de passe saisi incorrect."

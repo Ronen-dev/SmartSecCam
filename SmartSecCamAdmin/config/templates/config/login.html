@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Connexion à votre espace</title>
-</head>
-<body>
+{% extends 'config/layout.html' %}
 
-    <h1>Connexion à votre espace</h1>
+{% block content %}
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
 
-    {% if error %}
-        {{ error }}
-    {% endif %}
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
 
-    <form action="{% url 'signin' %}" method="POST">
-        {% csrf_token %}
-        <label for="password">Mot de passe</label>
-        <input title="Password" type="password" name="password" id="password" value="" />
+                    <div class="title">
+                        SmartSecCam
+                    </div>
 
-        <input type="submit" value="Enregistrer" />
-    </form>
-
-</body>
-</html>
+                    <div class="form-wrap">
+                    <h1>Connexion à votre espace</h1>
+                        <form role="form" action="{% url 'signin' %}" method="POST" id="login-form" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="password" class="sr-only">Mot de passe</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Modifier">
+                        </form>
+                        <hr>
+                    </div>
+                </div> <!-- /.col-xs-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section>
+{% endblock content %}
