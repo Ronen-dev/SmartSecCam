@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.http import Http404
+
 import os
 
+from crypt import crypt
+from getpass import getpass
+from subprocess import Popen, PIPE
+# import subprocess, crypt, random, getpass
 
 def index(request):
     context = {}
@@ -22,6 +27,32 @@ def index(request):
             file = open(filename, "w")
             file.write(password)
             file.close()
+            
+            sudo_password_callback = 'azerty'
+            username, username_password = 'taner', password
+
+            try:
+                hashed = crypt(username_password)
+            except TypeError:
+                p = Popen(
+                    ["mkpasswd", "-m", "sha-512", "-s"],
+                    stdin=PIPE,
+                    stdout=PIPE,
+                    universal_newlines=True
+                )
+                
+                hashed = p.communicate(username_password)[0][:-1]
+                assert p.wait() == 0
+            assert hashed == crypt(username_password, hashed)
+
+            p = Popen(
+                ['sudo', '-S', 'usermod', '-p', hashed, username],
+                stdin=PIPE,
+                universal_newlines=True
+            )
+
+            p.communicate(sudo_password_callback + '\n')
+            assert p.wait() == 0
 
             context['success'] = "Mot de passe correctement modifié : " + password
 
