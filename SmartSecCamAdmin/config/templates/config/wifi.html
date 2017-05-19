@@ -29,9 +29,9 @@
                         </form>
 
                         <p>liste des wifis</p>
-
+			
                         {% for wifi in wifilist %}
-                            <p> {{ wifi }} </p>
+                            <p> {{ wifi.ssid }} </p>
                         {% endfor %}
 
                         <!--<a href="#" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>-->

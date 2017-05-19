@@ -1,5 +1,7 @@
 import wifi
 from wifi import Cell, Scheme
+from more_itertools import unique_everseen
+
 from django.shortcuts import render
 from django.http import Http404
 
@@ -239,7 +241,9 @@ def wifi(request):
 
     if request.method == "GET":
 
-        context = { 'wifilist': Search() }
+        listwifi = list(unique_everseen(Search()))
+        
+        context = { 'wifilist': listwifi }
 
         return render(request, 'config/wifi.html', context)
 
