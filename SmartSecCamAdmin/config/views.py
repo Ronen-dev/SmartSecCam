@@ -8,7 +8,6 @@ import os
 from crypt import crypt
 from getpass import getpass
 from subprocess import Popen, PIPE
-# import subprocess, crypt, random, getpass
 
 
 
@@ -165,7 +164,7 @@ def index(request):
             # FIN MODIFICATION MOT DE PASSE
             #
 
-            context['success'] = "Mot de passe correctement modifié : " + password
+            context['success'] = "Mot de passe correctement modifié."
 
             return render(request, 'config/profil.html', context)
 

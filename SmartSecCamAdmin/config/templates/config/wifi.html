@@ -1,32 +1,44 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Configuration du Wi-Fi</title>
-</head>
-<body>
+{% extends 'config/layout.html' %}
 
-    <h1>Choix du Wifi</h1>
+{% block content %}
 
-    <form action="/config/wifi/" method="POST">
-        {% csrf_token %}
-        <label for="wifi_name">Selectionner votre Wifi</label>
-        <input title="wifi_name" type="text" name="wifi_name" id="wifi_name" value="" />
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
 
-        <select id="select">
-          <option value="valeur1">Valeur 1</option>
-          <option value="valeur2" selected>Valeur 2</option>
-          <option value="valeur3">Valeur 3</option>
-        </select>
+                    <div class="title">
+                        SmartSecCam
+                    </div>
 
-        <input type="submit" value="Valider" />
-    </form>
+                    <div class="form-wrap">
+                    <h1>Configuration du Wi-fi</h1>
+                        <form role="form" action="/config/wifi/" method="POST" id="login-form" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="form-group">
+                               <label for="wifi_name">Selectionner votre Wifi</label>
+                                <input title="wifi_name" type="text" name="wifi_name" id="wifi_name" value="" />
 
-    <p>liste des wifis</p>
+                                <select id="select" class="form-control">
+                                  <option value="valeur1">Valeur 1</option>
+                                  <option value="valeur2" selected>Valeur 2</option>
+                                  <option value="valeur3">Valeur 3</option>
+                                </select>
+                            </div>
+                            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Accéder">
+                        </form>
 
-    {% for wifi in wifilist %}
-        <p> {{ wifi }} </p>
-    {% endfor %}
+                        <p>liste des wifis</p>
 
-</body>
-</html>
+                        {% for wifi in wifilist %}
+                            <p> {{ wifi }} </p>
+                        {% endfor %}
+
+                        <!--<a href="#" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>-->
+                        <hr>
+                    </div>
+                </div> <!-- /.col-xs-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section>
+{% endblock content %}
