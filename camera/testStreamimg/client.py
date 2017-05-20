@@ -15,8 +15,8 @@ try:
     with picamera.PiCamera() as camera:
         camera.resolution = (640, 480)
         # Start a preview and let the camera warm up for 2 seconds
-        camera.start_preview()
-        time.sleep(2)
+        #camera.start_preview()
+        #time.sleep(2)
         
         # Note the start time and construct a stream to hold image data
         # temporarily (we could write it directly to connection but in this
@@ -33,8 +33,8 @@ try:
             stream.seek(0)
             connection.write(stream.read())
             # If we've been capturing for more than 30 seconds, quit
-            if time.time() - start > 30:
-                break
+            #if time.time() - start > 30:
+            #    break
             # Reset the stream for the next capture
             stream.seek(0)
             stream.truncate()
