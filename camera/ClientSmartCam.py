@@ -1,5 +1,6 @@
 import socket
 import sys
+import numpy
 from time import sleep
 import cv2
 import picamera
@@ -50,31 +51,26 @@ def extract_features(image):
     cv2.imshow('SmartSecCam', image)
 
 if __name__ == "__main__":
-    # Create a UDP socket
-    print ("Before socket")
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    print ("After socket")
-    server_address = ('localhost', 9898)
-    message = 'This is the message.  It will be repeated.'
+
+    # Create a TCP/IP socket
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Connect the socket to the port where the server is listening
+    server_address = ('localhost', 10000)
+    print ('connecting to %s port %s' % server_address)
     sock.connect(server_address)
-    print("After connect")
-
-    try:
-        
-        # Send data
-        #print >>sys.stderr, 'sending "%s"' % message
-        #sent = sock.sendto(message, server_address)
     
-        # Receive response
-        #print >>sys.stderr, 'waiting to receive'
-        data, server = sock.recv()
-        #print >>sys.stderr, 'received "%s"' % data
-        extract_features(data)
-        key = cv2.ziqtKey(1) & 0xFF
-        # clear the stream in preparation for the next frame
-        #rawCapture.truncate(0)
-
-    finally:
-        #print >>sys.stderr, 'closing socket'
-        print("close client")
-        sock.close()
+    while True :
+        image = numpy.empty([480, 640])
+        i = 0
+        while i < 480 :
+            data = sock.recv(640)
+            image[i] = numpy.fromstring(data, dtype=numpy.uint8, count=640)
+            i += 1
+        cv2.imshow('imageclient', image)
+        #extract_features(image)
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord('q') :
+            keep_run = false
+            sock.close()            
+            break
