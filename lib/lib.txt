@@ -1,0 +1,4 @@
+pip install Flask
+pip install wifi
+pip install simple-crypt
+pip install picamera
