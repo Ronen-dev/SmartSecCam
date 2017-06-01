@@ -1,8 +1,13 @@
+import sys
 import io
 import socket
 import struct
 import time
 import picamera
+
+if not sys.argv[1]:
+    print('Usage : python server.py <addr>')
+    return False
 
 # Connect a client socket to my_server:8000 (change my_server to the
 # hostname of your server)
