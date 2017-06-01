@@ -5,14 +5,14 @@ import struct
 import time
 import picamera
 
-if not sys.argv[1]:
-    print('Usage : python server.py <addr>')
-    return False
-
 # Connect a client socket to my_server:8000 (change my_server to the
 # hostname of your server)
-client_socket = socket.socket()
-client_socket.connect(('localhost', 8000))
+try:
+    client_socket = socket.socket()
+    client_socket.connect((sys.argv[1], 8000))
+except IndexError:
+    print("Usage: python client.py <addr>")
+    sys.exit(0)
 
 # Make a file-like object out of the connection
 connection = client_socket.makefile('wb')
