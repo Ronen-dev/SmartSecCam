@@ -7,11 +7,6 @@ import cv2
 import numpy
 
 
-if not sys.argv[1]:
-    print('Usage : python server.py <addr>')
-    return False
-
-
 #fonction de traitement de la frame
 def extract_features(image):
     print('Extract features')
@@ -49,10 +44,14 @@ def extract_features(image):
 
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
-server_socket = socket.socket()
-#server_socket.bind(('localhost', 8000))
-server_socket.bind(sys.argv[1], 8000))
-server_socket.listen(0)
+try :
+    server_socket = socket.socket()
+    #server_socket.bind(('localhost', 8000))
+    server_socket.bind(sys.argv[1], 8000)
+    server_socket.listen(0)
+except IndexError:
+    print("Usage: python server.py <addr>")
+    sys.exit(0)
 
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
