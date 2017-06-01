@@ -6,7 +6,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 
 app = Flask(__name__)
-wifiInterface = 'wlp3s0'
+wifiInterface = 'wlan0'
 
 connected = False
 
@@ -43,8 +43,11 @@ def index():
     checkKnownWifiFile()
     if not checkPasswordFile():
         return redirect(url_for('password'))
-    #check wifi on test tout les wifi qu'on connait si pas possible de se co on redirige sur la page pour ajoute un wifi
-    return 'hello world!'
+    if not connected:
+        return redirect(url_for('wifi'))
+    if connected:
+        return redirect(url_for('ip'))
+    return 'Welcome on SmartSecCam web interface'
 
 @app.route('/password', methods=['GET', 'POST'])
 def password():
@@ -90,7 +93,7 @@ def wifi():
             file = open('.known_wifi', 'a')
             file.write(request.form['wifi-name'] + '\n')
             file.close()
-            # faut mettre qqch en else ou genre
+            return redirect(url_for('ip'))
         else:
             error = 'Vous devez remplir les deux champs du formulaire'
             return render_template('wifi.html', error=error)
